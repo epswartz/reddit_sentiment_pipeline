@@ -1,0 +1,13 @@
+CREATE TABLE Entities (
+  EntityName    STRING(1024) NOT NULL,
+  SubReddit     String(1024) NOT NULL,
+) PRIMARY KEY (EntityName);
+
+CREATE TABLE Comments (
+  Id             String(1024) NOT NULL,
+  Created_UTC    INT64 NOT NULL,
+  Author         STRING(1024) NOT NULL,
+  SubReddit      String(1024) NOT NULL,
+  EntityName     String(1024) NOT NULL,
+  Sentiment      FLOAT64 NOT NULL
+) PRIMARY KEY (Id);
