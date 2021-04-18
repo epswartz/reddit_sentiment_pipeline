@@ -33,7 +33,7 @@ def main(
 
     with open(csv_file, 'r') as f:
         lines = f.readlines()
-    records = [line.trim().split(",") for line in lines[1:]]
+    records = [line.strip().split(",") for line in lines[1:]]
     assert len(records) > 0 # Need at least one entity.
 
     for i in tqdm(range(len(records)//batch_size + 1), "Uploading Entity Batches"):
