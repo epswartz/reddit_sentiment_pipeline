@@ -1,6 +1,7 @@
 import requests
 from typing import List
 from google.cloud import spanner
+from random import choice
 
 NUMBER_OF_COMMENTS = 2 # Number of comments to fetch per call.
 SPANNER_INSTANCE = "reddit-pipeline"
@@ -44,7 +45,7 @@ def get_unique_subreddits(database):
     with database.snapshot() as snapshot:
         result = snapshot.execute_sql(get_all_reddits_sql)
         for row in result:
-            subreddits.append(row)
+            subreddits.append(row[0])
     return subreddits
 
 
@@ -57,18 +58,19 @@ def handle_timer(_):
     spanner_client = spanner.Client()
     instance = spanner_client.instance(SPANNER_INSTANCE)
     database = instance.database(DB_NAME)
-    subreddits = get_unique_subreddits(database)
-    print(subreddits)
+    all_subreddits = get_unique_subreddits(database)
+    
+    # Pick a subreddit at random
+    # This is random because it will be uniform over time, but can still be stateless.
+    subreddit = choice(all_subreddits)
 
-    # TODO Pick a subreddit at random
     # TODO Get comments from that subreddit
     # TODO Get entities for that subreddit ( spanner query)
     # Using some levenshtein or something, determine whether the entity is mentioned.
 
     # Stuffs everything into a dict so that it's a valid response.
-    return {
-            "comments": fetch_comments(NUMBER_OF_COMMENTS)
-    }
+    comments = fetch_comments(NUMBER_OF_COMMENTS, subreddit)
+    return comments
 
 if __name__ == "__main__":
     print("Testing producer...")
