@@ -1,5 +1,6 @@
 import requests
 from typing import List
+from google.cloud import spanner
 
 NUMBER_OF_COMMENTS = 2 # Number of comments to fetch per call.
 SPANNER_INSTANCE = "reddit-pipeline"
