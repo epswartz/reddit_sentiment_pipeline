@@ -1,5 +1,6 @@
-from google.cloud import spanner
 from typing import List
+
+from google.cloud import spanner
 from tqdm import tqdm
 import typer
 
