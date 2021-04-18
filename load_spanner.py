@@ -4,14 +4,15 @@ from google.cloud import spanner
 from tqdm import tqdm
 import typer
 
-DB_NAME = "Entities"
+DB_NAME = 'reddit-pipeline'
+TABLE_NAME = "Entities"
 
 def load_entities(transaction, entities = List[List[str]]) -> None:
     """
     Bulk insert entities.
     """
     transaction.insert(
-        DB_NAME,
+        TABLE_NAME,
         columns=["EntityName", "SubReddit"],
         values=entities
     )
