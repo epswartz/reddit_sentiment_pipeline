@@ -51,7 +51,7 @@ def handle_timer(request):
     instance = spanner_client.instance(SPANNER_INSTANCE)
     database = instance.database(DB_NAME)
     subreddits = database.run_in_transaction(get_unique_subreddits)
-    for row in subreddits:
+    for row in subreddits.rows:
         print(row)
 
     # TODO Pick a subreddit at random
