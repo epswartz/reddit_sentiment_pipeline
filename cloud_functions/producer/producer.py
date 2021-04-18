@@ -30,7 +30,7 @@ def fetch_comments(limit: int, subreddit: str) -> List[dict]:
         List of dict, each dict is a comment created by extract_data(comment).
     """
 
-    url = f"https://api.pushshift.io/reddit/search/comment/?size={limit}?subreddit={subreddit}"
+    url = f"https://api.pushshift.io/reddit/search/comment/?size={limit}&subreddit={subreddit}"
     resp = requests.get(url)
     comments = resp.json()['data']
     return [extract_data(comment) for comment in comments]
@@ -59,7 +59,7 @@ def handle_timer(_):
     instance = spanner_client.instance(SPANNER_INSTANCE)
     database = instance.database(DB_NAME)
     all_subreddits = get_unique_subreddits(database)
-    
+
     # Pick a subreddit at random
     # This is random because it will be uniform over time, but can still be stateless.
     subreddit = choice(all_subreddits)
