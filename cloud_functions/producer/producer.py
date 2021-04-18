@@ -43,7 +43,7 @@ def get_unique_subreddits(database):
     subreddits = []
     with database.snapshot() as snapshot:
         result = snapshot.execute_sql(get_all_reddits_sql)
-        for row in result.rows:
+        for row in result:
             subreddits.append(row)
     return subreddits
 
