@@ -38,6 +38,8 @@ def fetch_comments(limit: int, subreddit: str) -> List[dict]:
 def get_unique_subreddits(transaction):
     get_all_reddits_sql = "SELECT DISTINCT SubReddit FROM Entities"
     result = transaction.execute_sql(get_all_reddits_sql)
+    for row in result.rows:
+        print(row)
     return result
 
 
