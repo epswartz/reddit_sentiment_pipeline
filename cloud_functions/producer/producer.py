@@ -41,7 +41,7 @@ def get_unique_subreddits(database):
     """
     get_all_reddits_sql = "SELECT DISTINCT SubReddit FROM Entities"
     with database.snapshot() as snapshot:
-        result = snapshot.execute_sql(get_unique_subreddits)
+        result = snapshot.execute_sql(get_all_reddits_sql)
     return result
 
 
