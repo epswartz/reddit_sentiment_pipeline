@@ -48,7 +48,7 @@ def handle_timer(request):
 
     # TODO get from spanner to determine the desired subreddits
     spanner_client = spanner.Client()
-    instance = spanner_client.instance(instance_id)
+    instance = spanner_client.instance(SPANNER_INSTANCE)
     database = instance.database(DB_NAME)
     subreddits = database.run_in_transaction(get_unique_subreddits)
     print(subreddits)
