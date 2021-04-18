@@ -4,7 +4,7 @@ from google.cloud import spanner
 from tqdm import tqdm
 import typer
 
-DB_NAME = 'reddit-pipeline'
+DB_NAME = "reddit-pipeline"
 TABLE_NAME = "Entities"
 
 def load_entities(transaction, entities = List[List[str]]) -> None:
