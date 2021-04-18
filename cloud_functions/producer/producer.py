@@ -35,11 +35,13 @@ def fetch_comments(limit: int, subreddit: str) -> List[dict]:
     return [extract_data(comment) for comment in comments]
 
 
-def get_unique_subreddits(transaction):
+def get_unique_subreddits(database):
+    """
+    Given the entities DB, return all the subreddits.
+    """
     get_all_reddits_sql = "SELECT DISTINCT SubReddit FROM Entities"
-    result = transaction.execute_sql(get_all_reddits_sql)
-    for row in result.rows:
-        print(row)
+    with database.snapshot() as snapshot:
+        result = snapshot.execute_sql(get_unique_subreddits)
     return result
 
 
@@ -52,9 +54,8 @@ def handle_timer(request):
     spanner_client = spanner.Client()
     instance = spanner_client.instance(SPANNER_INSTANCE)
     database = instance.database(DB_NAME)
-    subreddits = database.run_in_transaction(get_unique_subreddits)
-    for row in subreddits.rows:
-        print(row)
+    subreddits = get_unique_subreddits(database)
+    print(subreddits)
 
     # TODO Pick a subreddit at random
     # TODO Get comments from that subreddit
