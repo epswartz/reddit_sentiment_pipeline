@@ -40,12 +40,15 @@ def get_unique_subreddits(database):
     Given the entities DB, return all the subreddits.
     """
     get_all_reddits_sql = "SELECT DISTINCT SubReddit FROM Entities"
+    subreddits = []
     with database.snapshot() as snapshot:
         result = snapshot.execute_sql(get_all_reddits_sql)
-    return result
+        for row in result.rows:
+            subreddits.append(row)
+    return subreddits
 
 
-def handle_timer(request):
+def handle_timer(_):
     """
     HTTP entrypoint for the GCP Cloud Function. Called by Cloud Scheduler.
     """
@@ -55,8 +58,6 @@ def handle_timer(request):
     instance = spanner_client.instance(SPANNER_INSTANCE)
     database = instance.database(DB_NAME)
     subreddits = get_unique_subreddits(database)
-    for row in subreddits.rows:
-        print(row)
     print(subreddits)
 
     # TODO Pick a subreddit at random
