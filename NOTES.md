@@ -1,1 +1,0 @@
-Producer URL: https://us-east1-proj4-310202.cloudfunctions.net/producer
