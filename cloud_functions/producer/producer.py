@@ -61,7 +61,7 @@ def get_all_entities_for_subreddit(database, subreddit):
     """
     Get all entities for a given subreddit from spanner.
     """
-    get_all_entities_for_reddit_sql = f"SELECT DISTINCT EntityName FROM Entities WHERE SubReddit = {subreddit}"
+    get_all_entities_for_reddit_sql = f'SELECT DISTINCT EntityName FROM Entities WHERE SubReddit = "{subreddit}"'
     entities = []
     with database.snapshot() as snapshot:
         result = snapshot.execute_sql(get_all_entities_for_reddit_sql)
