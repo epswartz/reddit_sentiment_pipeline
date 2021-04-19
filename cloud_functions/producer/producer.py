@@ -23,7 +23,7 @@ def extract_data(comment: dict) -> dict:
     result = {
         "id":comment["id"],
         "created_utc": comment["created_utc"],
-        "body": comment["body"],
+        "body": comment["body"].lower(),
         "author": comment["author"],
         "subreddit": comment["subreddit"],
     }
