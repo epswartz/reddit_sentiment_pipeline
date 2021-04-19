@@ -4,7 +4,7 @@ from google.cloud import spanner
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 
 SPANNER_INSTANCE = "reddit-pipeline"
-DB_NAME = "reddit_pipeline"
+DB_NAME = "reddit-pipeline"
 TABLE_NAME = "Comments"
 COMMENTS_TABLE_COLUMNS = [
     "Id",
