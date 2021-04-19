@@ -13,7 +13,7 @@ SPANNER_INSTANCE = "reddit-pipeline"
 DB_NAME = "reddit-pipeline"
 
 # Pub/Sub Config
-PROJECT_ID = "721proj4"
+PROJECT_ID = "721Proj4"
 TOPIC_ID = "reddit-pipeline"
 
 def extract_data(comment: dict) -> dict:
