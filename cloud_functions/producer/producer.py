@@ -21,10 +21,11 @@ def extract_data(comment: dict) -> dict:
     Extract wanted fields from a push shift API comment object.
     """
     result = {
-      "created_utc": comment["created_utc"],
-      "body": comment["body"],
-      "author": comment["author"],
-      "subreddit": comment["subreddit"],
+        "id":comment["id"],
+        "created_utc": comment["created_utc"],
+        "body": comment["body"],
+        "author": comment["author"],
+        "subreddit": comment["subreddit"],
     }
     return result
 
@@ -80,8 +81,10 @@ def entity_filter(comments, entities):
     filtered = []
     for comment in comments:
         for entity in entities:
+            found_entities = []
             if entity in comment["body"]:
-                filtered.append(comment)
+                found_entities.append(entity)
+                filtered.append((comment, found_entities))
     return filtered
 
 
@@ -92,7 +95,7 @@ def handle_timer(_):
     1. Query Spanner for entities and subreddits of interest
     2. Query pushshift for comments
     3. Filter to only comments which mention the entity
-    4. Publish each comment to Pub/Sub
+    4. Publish each relevant comment to Pub/Sub
     """
 
     # Get from spanner to determine the desired subreddits
