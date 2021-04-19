@@ -80,7 +80,7 @@ def entity_filter(comments, entities):
     filtered = []
     for comment in comments:
         for entity in entities:
-            if entity in comment.body:
+            if entity in comment["body"]:
                 filtered.append(comment)
     return filtered
 
